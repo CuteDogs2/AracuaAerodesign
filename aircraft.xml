@@ -1,0 +1,115 @@
+
+<?xml version="1.0"?>
+
+
+
+<!-- Cabecalho -->
+
+<fileheader>
+
+    <author> Joao Falcao </author>
+    <email> joaofalcao@gmail.com </email>
+    <organization>
+        Aracuã Aerodesign
+        Universidade Federal da Grande Dourados
+        BR
+    </organization>
+    <filecreationdate> 2025-09-08 </filecreationdate>
+    <version> 1.0 </version>
+    <description>
+        Modelo da aeronave a ser desenvolvida pela Aracuã Aerodesign para a competiçao SAE AeroDesign Brasil 2025.
+    </description>
+    <note>
+        Arquivo Original.
+    </note>
+
+</fileheader >
+
+
+
+
+<!-- Metrics Area (Definições gerais) -->
+
+<wingarea unit="FT2"> <!-- Area da asa em pes quadrados --> </wingarea>
+<wingspan unit="FT"> <!-- Envergadura da asa em pes --> </wingspan>
+<chord unit="FT"> <!-- Corda da asa em pes --> </chord>
+<htailarea unit="FT2"> <!-- Area do estabilizador horizontal em pes quadrados --> </tailarea>
+<htailarm unit="FT">
+    <!-- Braco de empenagem horizontal em pes (distancia entre centro aerodinamico da asa principal ao centro aerodinamico da empenagem horizontal - superficie da cauda horizontal -) -->
+</htailarm>
+<vtailarea unit="FT2"> <!-- Area do estabilizador vertical em pes quadrados--> </vtailarea>
+<vtailarm unit="FT">
+<!-- Braco de empenagem vertical em pes (distancia entre o centro aerodinamico da asa principal ao centro aerodinamico da empenagem vertical - superficie da cauda vertical -) -->
+</vtailarm>
+
+<location name="AERORP" unit="IN">
+    <!-- Localizacao do centro aerodinamico da aeronave em polegadas -->
+    <x>0.0</x>
+    <y>0.0</y>
+    <z>0.0</z>
+</location>
+
+<location name="EYEPOINT" unit="IN">
+    <!-- Localizacao do bico da aeronave em polegadas (para visualizacao)-->
+    <x>0.0</x>
+    <y>0.0</y>
+    <z>0.0</z>
+</location>
+
+<location name="VRP" unit="IN">
+    <!-- Localizacao do ponto de referencia da aeronave em polegadas (para visualizacao) -->
+    <x>0.0</x>
+    <y>0.0</y>
+    <z>0.0</z>
+</location>
+
+
+
+<!-- Massa da aeronave -->
+
+<mass_balance>
+      <documentation> 
+        Centro de gravidade da aeronave, peso vazio, no sistema de coordenadas estruturais da aeronave.
+    </documentation>
+    <ixx unit="KG*M2"> <!-- Momento de inercia no eixo X --> </ixx>
+    <iyy unit="KG*M2"> <!-- Momento de inercia no eixo Y --> </iyy>
+    <izz unit="KG*M2"> <!-- Momento de inercia no eixo Z --> </izz>
+    <ixy unit="KG*M2"> <!-- Momento de inercia no plano XY --> </ixy>
+    <emptywt unit="KG"> <!-- Peso vazio da aeronave em quilogramas --> </emptywt>
+
+    <location name="CG" unit="M"> <!-- Localizacao do centro de gravidade em metros -->
+        <x>0.0</x>
+        <y>0.0</y>
+        <z>0.0</z>
+    </location>
+
+    <!-- Massa pontual, caso haja, adicione quantos forem necessários (não obrigatorio) -->
+    <pointmass name="playload">
+        <weight unit="KG"> <!-- Peso da massa pontual em quilogramas --> </weight>
+        <location unit="M"> <!-- Localizacao da massa pontual em metros-->
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </location> 
+    </pointmass>
+</mass_balance>
+
+
+
+
+<!-- Reacoes do solo -->
+
+<ground_reactions>
+
+    <!-- Contato do trem de pouso frontal -->
+    <contact type="BOGEY" name="NOSE_GEAR">
+        <location unit="M">    <!-- Localizacao do contato do trem de pouso frontal em metros -->
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </location>
+        <static_friction> <!-- Coeficiente de atrito estatico do trem de pouso frontal --> </static_friction>
+        <dynamic_friction> <!-- Coeficiente de atrito dinamico do trem de pouso frontal --> </dynamic_friction>
+        <rolling_friction> <!-- Coeficiente de atrito de rolamento do trem de pouso frontal --> </rolling_friction>
+        <spring_coeff unit="N/M"> <!-- Constante elastica do trem de pouso frontal (Lei de Hooke) --> </spring_coeff>
+        
