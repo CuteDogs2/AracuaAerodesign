@@ -112,4 +112,190 @@
         <dynamic_friction> <!-- Coeficiente de atrito dinamico do trem de pouso frontal --> </dynamic_friction>
         <rolling_friction> <!-- Coeficiente de atrito de rolamento do trem de pouso frontal --> </rolling_friction>
         <spring_coeff unit="N/M"> <!-- Constante elastica do trem de pouso frontal (Lei de Hooke) --> </spring_coeff>
-        
+        <damping_coeff unit="N/M/SEC"> <!-- Coeficiente de amortecimento do trem de pouso frontal --> </damping_coeff>
+        <damping_coeff_rebound unit="N/M/SEC"> <!-- Coeficiente de amortecimento em extensão (rebound) do trem de pouso frontal --> </damping_coeff_rebound>
+        <max_steer unit="DEG"> <!-- Angulo maximo de esterçamento do trem de pouso frontal em graus --> </max_steer>
+        <brake_group> <!-- NONE|LEFT|RIGHT|CENTER|NOSE|TAIL (grupos de freio) --> </brake_group>
+        <retractable> <!-- 0|1 (0 = não retrátil, 1 = retrátil) --> </retractable>
+        <table type="CORNERING_COEFF"> <!-- Tabela de coeficientes de curva (utilizada para modelar forças laterais em curvas) -nao obrigatorio- --> </table>
+    </contact>
+
+
+
+
+<!-- Propulsao -->
+
+<propulsion>
+    
+    <!-- Motor -->
+    <engine file="electric_engine.xml">
+        <location unit="IN"> <!-- Localizacao do motor em polegadas -->
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </location>
+        <orient unit="DEG"> <!-- Orientacao do motor em graus -->
+            <pitch>0.0</pitch>
+            <yaw>0.0</yaw>
+            <roll>0.0</roll>
+        </orient>
+        <feed> <!-- Tag para referenciar tanques pelo indice - 0 para valvula fechada | 1 para o tanque de maior prioridade --> </feed>
+        <thruster file="thruster.xml">
+            <location unit="IN"> <!-- Localizacao do propulsor em polegadas -->
+                <x>0.0</x>
+                <y>0.0</y>
+                <z>0.0</z>
+            </location>
+            <orient unit="DEG"> <!-- Orientacao do motor em graus -->
+                <roll>0.0</roll>
+                <pitch>0.0</pitch>
+                <yaw>0.0</yaw>
+            </orient>
+            <sense> <!-- +1 = sentido normal, -1 = sentido invertido --> </sense>
+            <p_factor> <!-- Fator de efeito de pa assimetrica --> </p_factor>
+        </thruster>
+    </engine>
+
+
+
+
+    <!-- Tanques -->
+    <!-- Caso seja um motor eletrico, podemos suprimir esta tag -->
+    <tank type="FUEL | OXIDIZER">
+        [<grain_config type="CYLINDRICAL | ENDBURNING"> <!-- Dimensoes do grao -->
+            <lenght unit="M"> </lenght>
+            <radius unit="M"> </radius>
+        </grain_config>]
+        <location unit="M"> <!-- Localizacao do tanque em metros -->
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </location>
+        <drain_location unit="M"> <!-- Localizacao do dreno do tanque em metros -->
+            <x>0.0</x>
+            <y>0.0</y>
+            <z>0.0</z>
+        </drain_location>
+        <radius unit="M"> </radius> <!-- Raio do tanque em metros-->
+        <capacity unit="KG"> <!-- Capacidade do tanque em quilogramas --> </capacity>
+        <content unit="KG"> <!-- Conteudo do tanque em quilogramas --> </content>
+        <temperature> <!-- Temperatura do tanque em Fahrenheit --> </temperature>
+        <standpipe unit="KG"> <!-- Quantidade de combustivel residual em quilogramas --> </standpipe>
+        <priority> <!-- Prioridade do tanque (0 = desativado, 1 = alta, 2...) --> </priority>
+        <density unit="KG/L"> <!-- Densidade do combustivel em quilogramas por litro --> </density>
+        <type> <!-- Tipo de tanque (AVGAS, JP-8, JP-9, JET-A, ...) - sobrescreve a densidade - --> </type>
+    <tank>
+
+
+
+
+<!-- Aerodinamica -->
+
+<aerodinamics>
+
+    <alphalimits unit="DEG"> <!-- Limites de angulo de ataque -->
+        <min>0.0</min>
+        <max>15.0</max>
+    </alphalimits>
+
+    <hysteresis_limits unit="DEG"> <!-- Intervalo para efeitos de histerese -->
+        <min>0.0</min>
+        <max>15.0</max>
+    </hysteresis_limits>
+
+    <aero_ref_pt_shift_x> <!-- Deslocamento do ponto de referencia aerodinamico no eixo X -->
+        <function>
+            <!-- Conteudo da funcao que pode variar o deslocamento dinamicamente -->
+        </function>
+
+    <axis name="ROLL"> <!-- Eixo de rotacao em torno do eixo longitudinal (Rolamento) -->
+
+        <!-- Funcoes de coeficientes para eixo de rolamento -->
+
+        <function name="aero/coefficient/Clb">
+            <description> Momento de rolamento em funcao de beta </description>
+
+        <input> [-]property </input> <!-- k (Valor de entrada) -->
+        <zero_centered> {true|false} </zero_centered>   <!-- Centralizar em zero -->
+        [<domain>   <!-- Dominios maximos e minimos de entrada -->
+            <min> number </min>
+            <max> number </max>
+        </domain>]
+        <range>    <!-- Intervalo de saida -->
+            <min> number </min>
+            <max> number </max>
+        </range>
+        [<gain> {property|number} </gain>]    <!-- Ganho -->
+        [<clipto>   <!-- Limites de saida -->
+            <min> number|property </min>
+            <max> number|property </max>
+        </clipto>]
+        [<output> property </output>]    <!-- Saida -->
+    </axis>
+
+    <axis name="PITCH">
+        <input> [-]property </input> <!-- k -->
+        <zero_centered> {true|false} </zero_centered>
+        [<domain>
+            <min> number </min>
+            <max> number </max>
+        </domain>]
+        <range>
+            <min> number </min>
+            <max> number </max>
+        </range>
+        [<gain> {property|number} </gain>]
+        [<clipto>
+            <min> number|property </min>
+            <max> number|property </max>
+        </clipto>]
+        [<output> property </output>]
+    </axis>
+
+    <axis name="YAW">
+        <input> [-]property </input> <!-- k -->
+        <zero_centered> {true|false} </zero_centered>
+        [<domain>
+            <min> number </min>
+            <max> number </max>
+        </domain>]
+        <range>
+            <min> number </min>
+            <max> number </max>
+        </range>
+        [<gain> {property|number} </gain>]
+        [<clipto>
+            <min> number|property </min>
+            <max> number|property </max>
+        </clipto>]
+        [<output> property </output>]
+    </axis>
+
+    <axis name="LIFT | DRAG | SIDE | ROLL | PITCH | YAW"> <!-- eixos de forca (momento rotacional) -->
+        <!-- Definicao dos coeficientes de forca-->
+    </axis>
+
+</aerodinamics>
+
+
+
+
+<!--  -->
+<aerosurface_scale name="name"> 
+    <input> [-]property </input> <!-- k -->
+    <zero_centered> {true|false} </zero_centered> 
+    [<domain> 
+        <min> number </min> 
+        <max> number </max> 
+    </domain>] 
+    <range> 
+        <min> number </min> 
+        <max> number </max>
+    </range> 
+    [<gain> {property|number} </gain>] 
+    [<clipto> 
+        <min> number|property </min> 
+        <max> number|property </max> 
+    </clipto>] 
+    [<output> property </output>] 
+</aerosurface_scale > 
